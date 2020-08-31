@@ -16,6 +16,7 @@ import {
     PASSPHRASE_URL,
     SEED_MANUAL_URL,
 } from '@suite-constants/urls';
+import { getTimeValueFromSeconds } from '@suite-utils/date';
 import { getFwVersion, isBitcoinOnly } from '@suite-utils/device';
 import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics, useActions, useSelector } from '@suite-hooks';
@@ -42,6 +43,42 @@ const Col = styled.div`
     flex-direction: column;
 `;
 
+const times = [
+    {
+        name: 'days',
+        label: 'Day',
+        max: 5,
+        multiplier: 24 * 60 * 60,
+    },
+    {
+        name: 'hours',
+        label: 'Hrs',
+        max: 23,
+        multiplier: 60 * 60,
+    },
+    {
+        name: 'minutes',
+        label: 'Min',
+        max: 59,
+        multiplier: 60,
+    },
+    {
+        name: 'seconds',
+        label: 'Sec',
+        max: 59,
+        multiplier: 1,
+    },
+];
+
+const getAutoLockValue = (time) => {
+    let value = 0;
+    times.forEach(t => {
+        value += time[t.name] * t.multiplier;
+    });
+
+    return value;
+};
+
 const Settings = () => {
     const device = useSelector(state => state.suite.device);
     const { applySettings, changePin, goto, openModal } = useActions({
@@ -58,12 +95,26 @@ const Settings = () => {
     const isDeviceLocked = isLocked();
     const analytics = useAnalytics();
     const MAX_LABEL_LENGTH = 16;
+    const [autoLockTime, setAutoLockTime] = useState({
+        seconds: 0,
+        minutes: 0,
+        hours: 0,
+        days: 0,
+    });
 
     useEffect(() => {
         if (!device) {
             return;
         }
         setLabel(device.label);
+
+        const autolock = 42420; // TEMP
+        let timeValues = {};
+        times.forEach(t => {
+            timeValues[t.name] = getTimeValueFromSeconds(autolock, t.name);
+        });
+
+        setAutoLockTime(timeValues);
     }, [device]);
 
     if (!device?.features) {
@@ -447,6 +498,50 @@ const Settings = () => {
                                     {variant.label}
                                 </RotationButton>
                             ))}
+                        </ActionColumn>
+                    </SectionItem>
+                )}
+                {features.major_version === 2 && (
+                    <SectionItem>
+                        <TextColumn title={<Translation id="TR_DEVICE_SETTINGS_AUTO_LOCK" />} />
+                        <ActionColumn>
+                            {times.map(t => (
+                                <ActionInput
+                                    key={t.name}
+                                    label={t.label}
+                                    value={autoLockTime[t.name]}
+                                    max={t.max}
+                                    width={84}
+                                    type="number"
+                                    onChange={(event: React.FormEvent<HTMLInputElement>) =>
+                                        setAutoLockTime({
+                                            ...autoLockTime,
+                                            [t.name]: Number(event.currentTarget.value),
+                                        })
+                                    }
+                                    data-test={`@settings/device/autolock-${t.name}-input`}
+                                    readOnly={isDeviceLocked}
+                                />
+                            ))}
+
+                            <ActionButton
+                                onClick={() => {
+                                    applySettings({
+                                        auto_lock_delay_ms: getAutoLockValue(autoLockTime) * 1000,
+                                    });
+                                    analytics.report({
+                                        type: 'settings/device/update-autolock',
+                                        payload: {
+                                            value: getAutoLockValue(autoLockTime),
+                                        },
+                                    });
+                                }}
+                                // TODO: Update isDisabled if the time is incorect
+                                isDisabled={isDeviceLocked}
+                                data-test="@settings/device/autolock-submit"
+                            >
+                                Update
+                            </ActionButton>
                         </ActionColumn>
                     </SectionItem>
                 )}

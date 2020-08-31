@@ -1379,6 +1379,17 @@ const definedMessages = defineMessages({
         defaultMessage: 'Change PIN',
         id: 'TR_DEVICE_SETTINGS_CHANGE_PIN_TITLE',
     },
+    TR_DEVICE_SETTINGS_AUTO_LOCK: {
+        defaultMessage: 'Auto-lock time',
+        id: 'TR_DEVICE_SETTINGS_AUTO_LOCK',
+    },
+    TR_DEVICE_YOU_RECONNECTED_IS_DIFFERENT: {
+        defaultMessage:
+            'Device you reconnected is different from the previous device. Connect the right one.',
+        description:
+            'Text that indicates that user reconnected different device than he was working with before',
+        id: 'TR_DEVICE_YOU_RECONNECTED_IS_DIFFERENT',
+    },
     TR_DID_YOU_PURCHASE: {
         defaultMessage:
             'Please note, that device packaging including holograms have changed over time. You can check packaging details {TR_PACKAGING_LINK}. Also be sure you made your purchase from {TR_RESELLERS_LINK}. Otherwise, the device you are holding in your hands might be a counterfeit. Please {TR_CONTACT_OUR_SUPPORT_LINK}',

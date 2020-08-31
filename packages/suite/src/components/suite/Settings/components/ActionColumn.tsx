@@ -13,17 +13,17 @@ export const ActionColumn = styled.div`
 `;
 
 // found no better way how to style Input..
-const InputWrapper = styled.div`
+const InputWrapper = styled.div<InputProps>`
     margin: 4px;
     width: 100%;
     @media all and (min-width: ${SCREEN_SIZE.SM}) {
-        width: 170px;
+        width: ${props => props.width || 170}px;
     }
 `;
 
 export const ActionInput = (props: InputProps) => {
     return (
-        <InputWrapper>
+        <InputWrapper width={props.width}>
             <Input {...props} />
         </InputWrapper>
     );
