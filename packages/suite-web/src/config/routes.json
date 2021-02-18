@@ -1,0 +1,102 @@
+[
+    {
+        "path": "/",
+        "component": "@dashboard-views",
+        "exact": true
+    },
+    {
+        "path": "/accounts",
+        "component": "@wallet-views/transactions",
+        "exact": true
+    },
+    {
+        "path": "/accounts/details",
+        "component": "@wallet-views/details"
+    },
+    {
+        "path": "/accounts/receive",
+        "component": "@wallet-views/receive"
+    },
+    {
+        "path": "/accounts/send",
+        "component": "@wallet-views/send"
+    },
+    {
+        "path": "/accounts/sign-verify",
+        "component": "@wallet-views/sign-verify"
+    },
+    {
+        "path": "/accounts/coinmarket",
+        "component": "@wallet-views/coinmarket/buy",
+        "exact": true
+    },
+    {
+        "path": "/accounts/coinmarket/buy",
+        "component": "@wallet-views/coinmarket/buy",
+        "exact": true
+    },
+    {
+        "path": "/accounts/coinmarket/buy/detail",
+        "component": "@wallet-views/coinmarket/buy/detail"
+    },
+    {
+        "path": "/accounts/coinmarket/buy/offers",
+        "component": "@wallet-views/coinmarket/buy/offers"
+    },
+    {
+        "path": "/accounts/coinmarket/exchange",
+        "component": "@wallet-views/coinmarket/exchange",
+        "exact": true
+    },
+    {
+        "path": "/accounts/coinmarket/exchange/detail",
+        "component": "@wallet-views/coinmarket/exchange/detail"
+    },
+    {
+        "path": "/accounts/coinmarket/exchange/offers",
+        "component": "@wallet-views/coinmarket/exchange/offers"
+    },
+    {
+        "path": "/accounts/coinmarket/spend",
+        "component": "@wallet-views/coinmarket/spend"
+    },
+    {
+        "path": "/coinmarket-redirect",
+        "component": "@wallet-views/coinmarket/redirect"
+    },
+    {
+        "path": "/notifications",
+        "component": "@suite-views/notifications"
+    },
+    {
+        "path": "/passwords",
+        "component": "@passwords-views"
+    },
+    {
+        "path": "/portfolio",
+        "component": "@passwords-views"
+    },
+    {
+        "path": "/settings",
+        "component": "@settings-views",
+        "exact": true
+    },
+    {
+        "path": "/settings/coins",
+        "component": "@settings-views/coins"
+    },
+    {
+        "path": "/settings/debug",
+        "component": "@settings-views/debug"
+    },
+    {
+        "path": "/settings/device",
+        "component": "@settings-views/device"
+    },
+    { "path": "/backup" },
+    { "path": "/bridge" },
+    { "path": "/firmware" },
+    { "path": "/onboarding" },
+    { "path": "/recovery" },
+    { "path": "/version" }
+]

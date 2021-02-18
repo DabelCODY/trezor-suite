@@ -1,0 +1,7 @@
+/// <reference path="../../suite/global.d.ts" />
+/// <reference path="../../suite/styled.d.ts" />
+
+declare module '*.png' {
+    const value: any;
+    export = value;
+}

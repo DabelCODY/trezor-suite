@@ -18,7 +18,7 @@ const DeviceImage = ({ trezorModel, height = '100%', className }: Props) => {
                     className={className}
                     height={height}
                     alt="trezor T1"
-                    src={require(`../../images/trezor/T1.png`)}
+                    src={require('../../images/trezor/T1.png')}
                 />
             );
         case 2:
@@ -27,7 +27,7 @@ const DeviceImage = ({ trezorModel, height = '100%', className }: Props) => {
                     className={className}
                     height={height}
                     alt="trezor T2"
-                    src={require(`../../images/trezor/T2.png`)}
+                    src={require('../../images/trezor/T2.png')}
                 />
             );
         // no default

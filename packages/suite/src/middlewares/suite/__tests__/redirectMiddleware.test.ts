@@ -17,15 +17,6 @@ import { Action } from '@suite-types';
 
 const { getSuiteDevice } = global.JestMocks;
 
-jest.mock('next/router', () => {
-    return {
-        __esModule: true, // this property makes it work
-        default: {
-            push: () => {},
-        },
-    };
-});
-
 jest.mock('@suite-actions/storageActions', () => {
     return { __esModule: true };
 });

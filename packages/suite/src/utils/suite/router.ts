@@ -73,12 +73,13 @@ const validateModalAppParams = (url: string) => {
 export const getAppWithParams = (url: string): RouterAppWithParams => {
     const route = findRoute(url);
 
-    if (!route)
+    if (!route) {
         return {
             app: 'unknown',
             route: undefined,
             params: undefined,
         };
+    }
 
     if (route.app === 'wallet') {
         return {

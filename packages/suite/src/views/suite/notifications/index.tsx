@@ -1,8 +1,8 @@
-import { LayoutContext, Notifications, Translation } from '@suite-components';
-import { MAX_WIDTH } from '@suite-constants/layout';
-import { variables } from '@trezor/components';
 import React from 'react';
 import styled from 'styled-components';
+import { variables } from '@trezor/components';
+import { MAX_WIDTH } from '@suite-constants/layout';
+import { LayoutContext, Notifications, Translation } from '@suite-components';
 
 const Wrapper = styled.div`
     display: flex;

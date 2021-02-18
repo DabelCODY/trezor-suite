@@ -3,11 +3,9 @@ import * as URLS from '@suite-constants/urls';
 import { parseUri } from '@suite-utils/parseUri';
 import { Icon, colors, P } from '@trezor/components';
 import { UserContextPayload } from '@suite-actions/modalActions';
-import dynamic from 'next/dynamic';
+import QrReader from 'react-qr-reader';
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
-const QrReader = dynamic(() => import('react-qr-reader'), { ssr: false });
 
 const Description = styled.div`
     display: flex;

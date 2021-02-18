@@ -1,5 +1,5 @@
-// https://github.com/zeit/next.js/issues/4768
-declare module 'worker-loader?name=static/[hash].worker.js!*' {
+// https://webpack.js.org/loaders/worker-loader/#integrating-with-typescript
+declare module 'worker-loader!*' {
     class WebpackWorker extends Worker {
         constructor();
     }
