@@ -37,6 +37,10 @@ const StyledRow = styled(Row)`
     padding-top: 0;
 `;
 
+const NoWrap = styled.span`
+    white-space: nowrap;
+`;
+
 const Details = () => {
     const selectedAccount = useSelector(state => state.wallet.selectedAccount);
     const { openModal } = useActions({
@@ -78,7 +82,9 @@ const Details = () => {
                     />
                     <AccountTypeLabel>
                         <P size="small">
-                            <Translation id={accountTypeName} />
+                            <NoWrap>
+                                <Translation id={accountTypeName} />
+                            </NoWrap>
                         </P>
                         <P size="tiny">
                             <Translation id={accountTypeShortcut} />
