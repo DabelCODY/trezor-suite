@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+
 import { isDesktop } from '@suite-utils/env';
 import { useSelector } from '@suite-hooks';
 
@@ -10,17 +11,14 @@ import NoBackup from './NoBackup';
 import FailedBackup from './FailedBackup';
 
 const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
     z-index: 3;
+    background: ${props => props.theme.BG_WHITE};
 `;
 
 const Banners = () => {
     const transport = useSelector(state => state.suite.transport);
     const online = useSelector(state => state.suite.online);
     const device = useSelector(state => state.suite.device);
-
-    let Banner;
 
     const showUpdateBridge = () => {
         if (
@@ -33,25 +31,26 @@ const Banners = () => {
         return transport?.outdated;
     };
 
+    let banner;
     if (device?.features?.unfinished_backup) {
-        Banner = <FailedBackup />;
+        banner = <FailedBackup />;
     } else if (device?.features?.needs_backup) {
-        Banner = <NoBackup />;
+        banner = <NoBackup />;
     } else if (showUpdateBridge()) {
-        Banner = <UpdateBridge />;
+        banner = <UpdateBridge />;
     } else if (
         device?.connected &&
         device?.features &&
         device?.mode !== 'bootloader' &&
         ['outdated'].includes(device.firmware)
     ) {
-        Banner = <UpdateFirmware />;
+        banner = <UpdateFirmware />;
     }
 
     return (
         <Wrapper>
             <OnlineStatus isOnline={online} />
-            {Banner}
+            {banner}
             {/* TODO: add Pin not set */}
         </Wrapper>
     );
