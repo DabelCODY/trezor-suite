@@ -1,0 +1,84 @@
+{
+    "version": 1,
+    "timestamp": "2021-03-03T03:48:16+00:00",
+    "sequence": 1,
+    "actions": [
+        {
+            "conditions": [
+                {
+                    "duration": {
+                        "from": "2021-03-01T12:10:00.000Z",
+                        "to": "2022-01-31T12:10:00.000Z"
+                    },
+                    "os": {
+                        "macos": ["10.14", "10.18", "11"],
+                        "linux": "<20.04",
+                        "windows": "!",
+                        "android": "*",
+                        "ios": "13"
+                    },
+                    "environment": {
+                        "desktop": "<21.5",
+                        "mobile": "!",
+                        "web": "<22"
+                    },
+                    "browser": {
+                        "firefox": ["82", "83"],
+                        "chrome": "*",
+                        "chromium": "!"
+                    },
+                    "settings": [
+                        {
+                            "tor": true,
+                            "btc": true
+                        },
+                        {
+                            "tor": false,
+                            "ltc": true
+                        }
+                    ],
+                    "transport": {
+                        "bridge": ["2.0.30", "2.0.27"],
+                        "webusbplugin": "*"
+                    },
+                    "devices": [
+                        {
+                            "model": "1",
+                            "firmware": "1.9.4",
+                            "vendor": "trezor.io"
+                        }
+                    ]
+                }
+            ],
+            "message": {
+                "id": "0f3ec64d-c3e4-4787-8106-162f3ac14c34",
+                "priority": 10,
+                "dismissible": true,
+                "variant": "warning",
+                "category": "banner",
+                "content": {
+                    "en-GB": "New Trezor firmware is available!",
+                    "de-DE": "Neue Trezor Firmware ist verfügbar!"
+                },
+                "cta": {
+                    "action": "internal-link",
+                    "href": "firmware-index",
+                    "label": {
+                        "en-GB": "Update now",
+                        "de-DE": "Jetzt aktualisieren"
+                    }
+                },
+                "modal": {
+                    "title": {
+                        "en-GB": "Update now",
+                        "de-DE": "Jetzt aktualisieren"
+                    },
+                    "image": "https://example.com/example.png"
+                },
+                "context": {
+                    "domain": ["coins.*.receive", "coins.btc"]
+                }
+            }
+        }
+    ]
+}

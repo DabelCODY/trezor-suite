@@ -9,10 +9,11 @@
     "license": "SEE LICENSE IN LICENSE.md",
     "description": "Trezor data",
     "scripts": {
-        "build": "yarn build:browser-detection",
+        "build": "yarn build:browser-detection && yarn message-system",
         "build:browser-detection": "webpack --config ./browser-detection.webpack.js",
         "copy-static-files": "yarn build && ts-node ./index.ts",
-        "test-same-svgs": "ts-node ./test/test-same-svgs.ts"
+        "test-same-svgs": "ts-node ./test/test-same-svgs.ts",
+        "message-system": "ts-node ./src/message-system/index.ts"
     },
     "dependencies": {
         "ua-parser-js": "^0.7.24"
@@ -23,6 +24,7 @@
         "copy-webpack-plugin": "^6.0.2",
         "fs-extra": "^9.0.1",
         "html-webpack-plugin": "^4.5.0",
+        "json-schema-to-typescript": "^10.1.3",
         "remove-files-webpack-plugin": "^1.4.3",
         "sharedworker-loader": "^2.1.1",
         "ts-node": "^8.10.2",
