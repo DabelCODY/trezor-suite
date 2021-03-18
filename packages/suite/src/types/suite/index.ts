@@ -20,6 +20,7 @@ import { NotificationAction } from '@suite-actions/notificationActions';
 import { AnalyticsAction } from '@suite-actions/analyticsActions';
 import { MetadataAction } from '@suite-actions/metadataActions';
 import { DesktopUpdateAction } from '@suite-actions/desktopUpdateActions';
+import { MessageSystemAction } from '@suite-actions/messageSystemActions';
 import { OnboardingAction } from '@onboarding-actions/onboardingActions';
 import { WalletSettingsAction } from '@settings-actions/walletSettingsActions';
 import { FirmwareAction } from '@firmware-actions/firmwareActions';
@@ -57,7 +58,8 @@ export type Action =
     | BackupAction
     | RecoveryAction
     | WalletSettingsAction
-    | DesktopUpdateAction;
+    | DesktopUpdateAction
+    | MessageSystemAction;
 
 // export type Dispatch = ReduxDispatch<Action>;
 // export type Dispatch = ThunkDispatch<AppState, any, Action>;
@@ -104,3 +106,4 @@ export type InjectedModalApplicationProps = {
 
 export type ToastNotificationVariant = 'success' | 'info' | 'warning' | 'error';
 export type SuiteThemeVariant = 'light' | 'dark' | 'custom';
+export type SuiteEnvironmentType = 'web' | 'desktop' | 'mobile' | '';

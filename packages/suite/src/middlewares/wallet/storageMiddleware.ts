@@ -12,7 +12,7 @@ import {
 } from '@wallet-actions/constants';
 import * as storageActions from '@suite-actions/storageActions';
 import * as accountUtils from '@wallet-utils/accountUtils';
-import { SUITE, ANALYTICS, METADATA } from '@suite-actions/constants';
+import { SUITE, ANALYTICS, METADATA, MESSAGE_SYSTEM } from '@suite-actions/constants';
 import { AppState, Action as SuiteAction, Dispatch } from '@suite-types';
 import { WalletAction } from '@wallet-types';
 
@@ -198,6 +198,12 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
         case METADATA.DISABLE:
         case METADATA.SET_PROVIDER:
             api.dispatch(storageActions.saveMetadata());
+            break;
+
+        case MESSAGE_SYSTEM.FETCH_CONFIG_SUCCESS_UPDATE:
+        case MESSAGE_SYSTEM.USE_BUNDLED_CONFIG:
+        case MESSAGE_SYSTEM.DISMISS_MESSAGE:
+            api.dispatch(storageActions.saveMessageSystem());
             break;
 
         default:

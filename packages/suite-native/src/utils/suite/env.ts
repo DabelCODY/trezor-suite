@@ -12,6 +12,12 @@ export const getUserAgent = () => {
 
 export const isDesktop = () => false;
 export const isWeb = () => false;
+export const isMobile = () => false;
+
+export const getEnvironment = () => {
+    // TODO
+    return '';
+};
 
 export const isMac = () => false;
 export const isWindows = () => false;

@@ -1,5 +1,5 @@
+import { BuyTrade, ExchangeTrade } from 'invity-api';
 import { db } from '@suite/storage';
-import { STORAGE } from './constants';
 import { Dispatch, GetState, AppState, TrezorDevice } from '@suite-types';
 import { Account } from '@wallet-types';
 import { GraphData } from '@wallet-types/graph';
@@ -10,7 +10,7 @@ import * as suiteActions from '@suite-actions/suiteActions';
 import { serializeDiscovery, serializeDevice } from '@suite-utils/storage';
 import { deviceGraphDataFilterFn } from '@wallet-utils/graphUtils';
 import { FormState } from '@wallet-types/sendForm';
-import { BuyTrade, ExchangeTrade } from 'invity-api';
+import { STORAGE } from './constants';
 
 export type StorageAction =
     | { type: typeof STORAGE.LOAD }
@@ -305,6 +305,23 @@ export const saveMetadata = () => async (_dispatch: Dispatch, getState: GetState
     );
 };
 
+export const saveMessageSystem = () => async (_dispatch: Dispatch, getState: GetState) => {
+    if (!(await isDBAccessible())) return;
+
+    const { dismissedMessages, config, currentSequence } = getState().messageSystem;
+
+    db.addItem(
+        'messageSystem',
+        {
+            config,
+            currentSequence,
+            dismissedMessages,
+        },
+        'suite',
+        true,
+    );
+};
+
 export const removeDatabase = () => async (dispatch: Dispatch, getState: GetState) => {
     if (!(await isDBAccessible())) return;
 
@@ -351,6 +368,7 @@ export const loadStorage = () => async (dispatch: Dispatch, getState: GetState) 
         const metadata = await db.getItemByPK('metadata', 'state');
         const txs = await db.getItemsExtended('txs', 'order');
         const mappedTxs: AppState['wallet']['transactions']['transactions'] = {};
+        const messageSystem = await db.getItemByPK('messageSystem', 'suite');
 
         txs.forEach(item => {
             const k = getAccountKey(item.tx.descriptor, item.tx.symbol, item.tx.deviceState);
@@ -420,6 +438,10 @@ export const loadStorage = () => async (dispatch: Dispatch, getState: GetState) 
                 metadata: {
                     ...initialState.metadata,
                     ...metadata,
+                },
+                messageSystem: {
+                    ...initialState.messageSystem,
+                    ...messageSystem,
                 },
             },
         });

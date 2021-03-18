@@ -8,6 +8,7 @@ import * as blockchainActions from '@wallet-actions/blockchainActions';
 import * as walletSettingsActions from '@settings-actions/walletSettingsActions';
 import * as analyticsActions from '@suite-actions/analyticsActions';
 import * as storageActions from '@suite-actions/storageActions';
+import * as messageSystemActions from '@suite-actions/messageSystemActions';
 import { fetchLocale } from '@settings-actions/languageActions';
 import * as trezorConnectActions from '@suite-actions/trezorConnectActions';
 import { getApp } from '@suite-utils/router';
@@ -66,6 +67,8 @@ const suite = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) => as
             api.dispatch(trezorConnectActions.init());
             // 4. init analytics
             api.dispatch(analyticsActions.init(action.payload.analytics, true));
+            // 5. fetch message system config
+            api.dispatch(messageSystemActions.init());
             break;
         }
         case SUITE.CONNECT_INITIALIZED:

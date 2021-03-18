@@ -1,0 +1,11 @@
+const JWS_PRODUCTION_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAE77bZRAszhhlCqJDokcvjlXOPPPRnAOh+
+ZkxZDuo75OAmRZFUJtb3jZQrLRhMa/YwOjUHgSa350GIi5L5oJ59+A==
+-----END PUBLIC KEY-----
+`;
+
+// const JWS_TEST_PUBLIC_KEY = '';
+
+// TODO: Production + dev public key
+export const JWS_PUBLIC_KEY =
+    process.env.NODE_ENV === 'production' ? JWS_PRODUCTION_PUBLIC_KEY : JWS_PRODUCTION_PUBLIC_KEY;

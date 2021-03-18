@@ -1,5 +1,8 @@
-import { StorageUpdateMessage } from '@trezor/suite-storage';
+import { BuyTrade, ExchangeTrade } from 'invity-api';
 import { DBSchema } from 'idb';
+
+import { MessageSystem } from '@suite-types/messageSystem';
+import { StorageUpdateMessage } from '@trezor/suite-storage';
 import { State as WalletSettings } from '@wallet-reducers/settingsReducer';
 import { SuiteState } from '@suite-reducers/suiteReducer';
 import { State as AnalyticsState } from '@suite-reducers/analyticsReducer';
@@ -8,7 +11,7 @@ import { AcquiredDevice } from '@suite-types';
 import { MetadataState } from '@suite-types/metadata';
 import { Account, Discovery, CoinFiatRates, WalletAccountTransaction } from '@wallet-types';
 import { GraphData } from '@wallet-types/graph';
-import { BuyTrade, ExchangeTrade } from 'invity-api';
+import { MessageState } from '@suite/reducers/suite/messageSystemReducer';
 
 export interface DBWalletAccountTransaction {
     tx: WalletAccountTransaction;
@@ -91,6 +94,16 @@ export interface SuiteDBSchema extends DBSchema {
     metadata: {
         key: 'state';
         value: MetadataState;
+    };
+    messageSystem: {
+        key: string;
+        value: {
+            currentSequence: number;
+            config: MessageSystem | null;
+            dismissedMessages: {
+                [key: string]: MessageState;
+            };
+        };
     };
 }
 

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import styled from 'styled-components';
 
+import { Message } from '@suite-types/messageSystem';
 import { isDesktop } from '@suite-utils/env';
 import { useSelector } from '@suite-hooks';
-
 import OnlineStatus from './OnlineStatus';
 import UpdateBridge from './UpdateBridge';
 import UpdateFirmware from './UpdateFirmware';
