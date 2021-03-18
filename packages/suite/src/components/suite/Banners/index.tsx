@@ -9,6 +9,7 @@ import UpdateBridge from './UpdateBridge';
 import UpdateFirmware from './UpdateFirmware';
 import NoBackup from './NoBackup';
 import FailedBackup from './FailedBackup';
+import MessageSystemBanner from './MessageSystemBanner';
 
 const Wrapper = styled.div`
     z-index: 3;
@@ -19,6 +20,7 @@ const Banners = () => {
     const transport = useSelector(state => state.suite.transport);
     const online = useSelector(state => state.suite.online);
     const device = useSelector(state => state.suite.device);
+    const { validMessages, dismissedMessages, config } = useSelector(state => state.messageSystem);
 
     const showUpdateBridge = () => {
         if (
@@ -31,13 +33,33 @@ const Banners = () => {
         return transport?.outdated;
     };
 
+    const getMessageSystemBanner = (): Message | null => {
+        const nonDismissedValidMessages = validMessages.banner.filter(
+            id => !dismissedMessages[id]?.banner,
+        );
+
+        const messages = config?.actions
+            .filter(({ message }) => nonDismissedValidMessages.includes(message.id))
+            .map(action => action.message);
+
+        if (!messages?.length) return null;
+
+        return messages.reduce((prev, current) =>
+            prev.priority > current.priority ? prev : current,
+        );
+    };
+
     let banner;
+    let priority = 0;
     if (device?.features?.unfinished_backup) {
         banner = <FailedBackup />;
+        priority = 9;
     } else if (device?.features?.needs_backup) {
         banner = <NoBackup />;
+        priority = 7;
     } else if (showUpdateBridge()) {
         banner = <UpdateBridge />;
+        priority = 5;
     } else if (
         device?.connected &&
         device?.features &&
@@ -45,6 +67,12 @@ const Banners = () => {
         ['outdated'].includes(device.firmware)
     ) {
         banner = <UpdateFirmware />;
+        priority = 3;
+    }
+
+    const messageSystemBanner = getMessageSystemBanner();
+    if (messageSystemBanner && messageSystemBanner.priority >= priority) {
+        banner = <MessageSystemBanner message={messageSystemBanner} />;
     }
 
     return (
