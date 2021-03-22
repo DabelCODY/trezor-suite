@@ -3514,6 +3514,10 @@ const definedMessages = defineMessages({
         id: 'TR_TRADE_EXCHANGES',
         defaultMessage: 'exchanges',
     },
+    TR_TRADE_SPENDS: {
+        id: 'TR_TRADE_SPENDS',
+        defaultMessage: 'spends',
+    },
     TR_PAYMENT_METHOD_CREDITCARD: {
         id: 'TR_PAYMENT_METHOD_CREDITCARD',
         defaultMessage: 'Credit Card',
