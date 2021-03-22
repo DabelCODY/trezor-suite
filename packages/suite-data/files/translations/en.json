@@ -1111,6 +1111,7 @@
 	"TR_TO_PREVENT_PHISHING_ATTACKS_COMMA": "To prevent phishing attacks, you should verify the address on your Trezor. {claim}",
 	"TR_TRADE_BUYS": "buys",
 	"TR_TRADE_EXCHANGES": "exchanges",
+	"TR_TRADE_SPENDS": "spends",
 	"TR_TRADE_NOT_FOUND": "Trade not found",
 	"TR_TRADE_REDIRECTING": "Redirecting ...",
 	"TR_TRADE_SELECT_COIN": "Select a coin...",
