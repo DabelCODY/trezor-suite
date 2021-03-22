@@ -1,0 +1,27 @@
+diff --git a/node_modules/trezor-connect/lib/typescript/trezor/protobuf.d.ts b/node_modules/trezor-connect/lib/typescript/trezor/protobuf.d.ts
+index f66bc62..aad988a 100644
+--- a/node_modules/trezor-connect/lib/typescript/trezor/protobuf.d.ts
++++ b/node_modules/trezor-connect/lib/typescript/trezor/protobuf.d.ts
+@@ -59,11 +59,12 @@ export enum Enum_BackupType {
+ }
+ export type BackupType = keyof typeof Enum_BackupType;
+ 
+-export enum SafetyCheckLevel {
++export enum Enum_SafetyCheckLevel {
+     Strict = 0,
+     PromptAlways = 1,
+     PromptTemporarily = 2,
+ }
++export type SafetyCheckLevel = keyof typeof Enum_SafetyCheckLevel;
+ 
+ // BinanceGetAddress
+ export type BinanceGetAddress = {
+@@ -1362,7 +1363,7 @@ export type Features = {
+     wipe_code_protection?: boolean;
+     session_id?: string;
+     passphrase_always_on_device?: boolean;
+-    safety_checks?: SafetyCheckLevel;
++    safety_checks?: SafetyCheckLevel | null;
+     auto_lock_delay_ms?: number;
+     display_rotation?: number;
+     experimental_features?: boolean;
