@@ -31,7 +31,7 @@ import { Modal, ModalProps } from './components/Modal';
 import { CoinLogo, CoinLogoProps } from './components/logos/CoinLogo';
 import { TrezorLogo, TrezorLogoProps } from './components/logos/TrezorLogo';
 import { Loader, LoaderProps } from './components/loaders/Loader';
-import { Tooltip, TooltipProps, tooltipGlobalStyles } from './components/Tooltip';
+import { Tooltip, TooltipProps } from './components/Tooltip';
 import { scrollbarStyles } from './components/Scrollbar';
 import { Timerange, TimerangeProps } from './components/Timerange';
 import { Truncate } from './components/Truncate';
@@ -80,7 +80,6 @@ export {
     LoaderProps,
     Tooltip,
     TooltipProps,
-    tooltipGlobalStyles,
     Timerange,
     TimerangeProps,
     Truncate,

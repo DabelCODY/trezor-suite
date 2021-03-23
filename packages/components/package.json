@@ -18,11 +18,12 @@
         "storybook-build": "build-storybook -s ./public -c .storybook -o .build-storybook"
     },
     "dependencies": {
-        "@tippy.js/react": "^3.1.1",
+        "@tippyjs/react": "^4.2.4",
         "date-fns": "^2.16.1",
         "react-datepicker": "3.4.0",
         "react-is": "16.13.1",
         "react-select": "^3.1.1",
+        "react-spring": "^8.0.27",
         "react-svg": "^11.2.2",
         "react-switch": "^6.0.0",
         "react-truncate": "^2.4.0"

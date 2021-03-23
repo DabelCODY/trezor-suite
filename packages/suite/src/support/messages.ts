@@ -4419,7 +4419,7 @@ const definedMessages = defineMessages({
     },
     OP_RETURN_TOOLTIP: {
         id: 'OP_RETURN_TOOLTIP',
-        defaultMessage: 'OP_RETURN_TOOLTIP',
+        defaultMessage: 'TODO',
     },
     OP_RETURN_ADD: {
         id: 'OP_RETURN_ADD',
@@ -4429,6 +4429,10 @@ const definedMessages = defineMessages({
     RBF: {
         id: 'RBF',
         defaultMessage: 'RBF',
+    },
+    RBF_TOOLTIP: {
+        id: 'RBF_TOOLTIP',
+        defaultMessage: 'TODO',
     },
     RBF_ON: {
         id: 'RBF_ON',
@@ -4450,6 +4454,10 @@ const definedMessages = defineMessages({
     LOCKTIME_ADD: {
         id: 'LOCKTIME_ADD',
         defaultMessage: 'Add Locktime',
+    },
+    LOCKTIME_ADD_TOOLTIP: {
+        id: 'LOCKTIME_ADD_TOOLTIP',
+        defaultMessage: 'TODO',
     },
     LOCKTIME_DESCRIPTION: {
         id: 'LOCKTIME_DESCRIPTION',
@@ -4501,6 +4509,10 @@ const definedMessages = defineMessages({
         defaultMessage: 'Destination tag',
         id: 'DESTINATION_TAG',
     },
+    DESTINATION_TAG_TOOLTIP: {
+        defaultMessage: 'TODO',
+        id: 'DESTINATION_TAG_TOOLTIP',
+    },
     DESTINATION_TAG_EXPLAINED: {
         defaultMessage:
             'Destination tag is an arbitrary number which serves as a unique identifier of your transaction. Some services may require this to process your transaction.',
@@ -4529,6 +4541,10 @@ const definedMessages = defineMessages({
     DATA_ETH_ADD: {
         id: 'DATA_ETH_ADD',
         defaultMessage: 'Add Data',
+    },
+    DATA_ETH_ADD_TOOLTIP: {
+        id: 'DATA_ETH_ADD_TOOLTIP',
+        defaultMessage: 'TODO',
     },
     DATA_NOT_SET: {
         defaultMessage: 'Data not set',
@@ -4581,6 +4597,10 @@ const definedMessages = defineMessages({
         id: 'SEND_RAW_TRANSACTION',
         description: 'Send raw form header',
         defaultMessage: 'Send raw transaction',
+    },
+    SEND_RAW_TRANSACTION_TOOLTIP: {
+        id: 'SEND_RAW_TRANSACTION_TOOLTIP',
+        defaultMessage: 'TODO',
     },
     SIGN_TRANSACTION: {
         id: 'SIGN_TRANSACTION',
@@ -4638,6 +4658,10 @@ const definedMessages = defineMessages({
     BROADCAST: {
         id: 'BROADCAST',
         defaultMessage: 'Broadcast',
+    },
+    BROADCAST_TOOLTIP: {
+        id: 'BROADCAST_TOOLTIP',
+        defaultMessage: 'TODO',
     },
     IMPORT_CSV: {
         id: 'IMPORT_CSV',
