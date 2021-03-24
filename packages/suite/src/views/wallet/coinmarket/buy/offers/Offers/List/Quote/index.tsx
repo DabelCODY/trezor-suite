@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme, Button, variables, Icon } from '@trezor/components';
-import { CoinmarketPaymentType, CoinmarketBuyProviderInfo } from '@wallet-components';
+import { CoinmarketPaymentType, CoinmarketProviderInfo } from '@wallet-components';
 import { QuestionTooltip, Translation } from '@suite-components';
 import { BuyTrade } from 'invity-api';
 import { useCoinmarketBuyOffersContext } from '@wallet-hooks/useCoinmarketBuyOffers';
@@ -204,6 +204,7 @@ const Quote = ({ className, quote, wantCrypto }: Props) => {
     // in the future will be taken from quote.tags, will need some algorithm to evaluate them and show only one
     const hasTag = false;
     const { paymentMethod, exchange, error } = quote;
+    const provider = providersInfo && exchange ? providersInfo[exchange] : undefined;
 
     return (
         <Wrapper className={className}>
@@ -231,7 +232,7 @@ const Quote = ({ className, quote, wantCrypto }: Props) => {
                         <Translation id="TR_BUY_PROVIDER" />
                     </Heading>
                     <Value>
-                        <CoinmarketBuyProviderInfo exchange={exchange} providers={providersInfo} />
+                        <CoinmarketProviderInfo exchange={exchange} provider={provider} />
                     </Value>
                 </Column>
                 <Column>

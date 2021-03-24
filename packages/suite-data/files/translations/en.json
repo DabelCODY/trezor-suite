@@ -1032,6 +1032,8 @@
 	"TR_SPEND_PROVIDER_CONTENT": "This content is fully provided by our partner",
 	"TR_SPEND_PROVIDER_CONTENT_WINDOW": "Spend content is fully provided by our partner Bitrefill. You’ll choose your purchase on their website and finish the transaction in Trezor Suite.",
 	"TR_SPEND_STAY": "Stay in Spend",
+	"TR_SPEND_TRANS_ID": "Trans. ID:",
+	"TR_SPEND_STATUS_FINISHED": "Finished",
 	"TR_STANDARD_WALLET": "Standard wallet",
 	"TR_STANDARD_WALLET_DESCRIPTION": "No passphrase",
 	"TR_START": "Start",

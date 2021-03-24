@@ -10,7 +10,7 @@ import * as suiteActions from '@suite-actions/suiteActions';
 import { serializeDiscovery, serializeDevice } from '@suite-utils/storage';
 import { deviceGraphDataFilterFn } from '@wallet-utils/graphUtils';
 import { FormState } from '@wallet-types/sendForm';
-import { BuyTrade, ExchangeTrade } from 'invity-api';
+import { BuyTrade, ExchangeTrade, SellVoucherTrade as SpendTrade } from 'invity-api';
 
 export type StorageAction =
     | { type: typeof STORAGE.LOAD }
@@ -135,6 +135,31 @@ export const saveExchangeTrade = async (
             tradeType: 'exchange',
             date,
             data: exchangeTrade,
+            account: {
+                descriptor: account.descriptor,
+                symbol: account.symbol,
+                accountType: account.accountType,
+                accountIndex: account.accountIndex,
+            },
+        },
+        undefined,
+        true,
+    );
+};
+
+export const saveSpendTrade = async (
+    spendTrade: SpendTrade,
+    account: AccountPart,
+    date: string,
+) => {
+    if (!(await isDBAccessible())) return;
+    return db.addItem(
+        'coinmarketTrades',
+        {
+            key: spendTrade.paymentId,
+            tradeType: 'spend',
+            date,
+            data: spendTrade,
             account: {
                 descriptor: account.descriptor,
                 symbol: account.symbol,

@@ -7,6 +7,7 @@ import { getUnusedAddressFromAccount } from '@suite/utils/wallet/coinmarket/coin
 import { useActions } from '@suite-hooks';
 import { useTranslation } from '@suite-hooks/useTranslation';
 import * as coinmarketSellActions from '@wallet-actions/coinmarketSellActions';
+import * as coinmarketSpendActions from '@wallet-actions/coinmarketSpendActions';
 import * as notificationActions from '@suite-actions/notificationActions';
 import { FormState } from '@wallet-types/sendForm';
 import { getFeeLevels } from '@wallet-utils/sendFormUtils';
@@ -46,6 +47,7 @@ export const useCoinmarketSpend = (props: Props): SpendContextValues => {
     const { addNotification, setShowLeaveModal } = useActions({
         addNotification: notificationActions.addToast,
         setShowLeaveModal: coinmarketSellActions.setShowLeaveModal,
+        saveTrade: coinmarketSpendActions.saveTrade,
     });
     const { translationString } = useTranslation();
 
