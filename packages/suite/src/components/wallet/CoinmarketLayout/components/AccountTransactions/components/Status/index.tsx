@@ -91,12 +91,35 @@ const getExchangeTradeData = (status: ExchangeTradeStatus, theme: SuiteThemeColo
     }
 };
 
+const getSpendTradeData = (theme: SuiteThemeColors) => {
+    return {
+        icon: 'CHECK',
+        color: theme.TYPE_GREEN,
+        statusMessageId: 'TR_SPEND_STATUS_FINISHED',
+    } as const;
+};
+
+type StatusData =
+    | ReturnType<typeof getBuyTradeData>
+    | ReturnType<typeof getExchangeTradeData>
+    | ReturnType<typeof getSpendTradeData>;
+
 const Status = ({ trade, className, tradeType }: Props) => {
     const theme = useTheme();
-    const data =
-        tradeType === 'buy'
-            ? getBuyTradeData(trade.status as BuyTradeStatus, theme)
-            : getExchangeTradeData(trade.status as ExchangeTradeStatus, theme);
+    let data: StatusData;
+    switch (tradeType) {
+        case 'buy':
+            data = getBuyTradeData(trade.status as BuyTradeStatus, theme);
+            break;
+        case 'exchange':
+            data = getExchangeTradeData(trade.status as ExchangeTradeStatus, theme);
+            break;
+        case 'spend':
+            data = getSpendTradeData(theme);
+            break;
+        // no default
+    }
+
     return (
         <Wrapper color={data.color} className={className}>
             <StyledIcon color={data.color} size={10} icon={data.icon} />

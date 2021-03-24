@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { Button, variables, Icon, useTheme } from '@trezor/components';
 import { QuestionTooltip, Translation } from '@suite-components';
 import { ExchangeTrade } from 'invity-api';
-import CoinmarketExchangeProviderInfo from '@wallet-components/CoinmarketExchangeProviderInfo';
 import { formatCryptoAmount } from '@wallet-utils/coinmarket/coinmarketUtils';
 import { isQuoteError } from '@wallet-utils/coinmarket/exchangeUtils';
 import { useCoinmarketExchangeOffersContext } from '@wallet-hooks/useCoinmarketExchangeOffers';
+import CoinmarketProviderInfo from '@suite/components/wallet/CoinmarketProviderInfo';
 
 const Wrapper = styled.div`
     display: flex;
@@ -153,7 +153,7 @@ const Quote = ({ className, quote }: Props) => {
     const errorQuote = isQuoteError(quote);
 
     const provider =
-        exchangeInfo?.providerInfos && exchange ? exchangeInfo?.providerInfos[exchange] : null;
+        exchangeInfo?.providerInfos && exchange ? exchangeInfo?.providerInfos[exchange] : undefined;
 
     return (
         <Wrapper className={className}>
@@ -179,10 +179,7 @@ const Quote = ({ className, quote }: Props) => {
                         <Translation id="TR_EXCHANGE_PROVIDER" />
                     </Heading>
                     <Value>
-                        <CoinmarketExchangeProviderInfo
-                            exchange={exchange}
-                            providers={exchangeInfo?.providerInfos}
-                        />
+                        <CoinmarketProviderInfo exchange={exchange} provider={provider} />
                     </Value>
                 </Column>
                 <Column>

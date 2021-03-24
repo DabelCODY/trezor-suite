@@ -8,6 +8,7 @@ import { useActions } from '@suite-hooks';
 import { useTranslation } from '@suite-hooks/useTranslation';
 import * as coinmarketCommonActions from '@wallet-actions/coinmarket/coinmarketCommonActions';
 import * as coinmarketSellActions from '@wallet-actions/coinmarketSellActions';
+import * as coinmarketSpendActions from '@wallet-actions/coinmarketSpendActions';
 import * as notificationActions from '@suite-actions/notificationActions';
 import { PrecomposedLevels } from '@wallet-types/sendForm';
 import { getFeeLevels } from '@wallet-utils/sendFormUtils';
@@ -26,12 +27,14 @@ export const useCoinmarketSpend = (props: Props): SpendContextValues => {
         signTransaction,
         addNotification,
         setShowLeaveModal,
+        saveTrade,
     } = useActions({
         composeTransaction: coinmarketCommonActions.composeTransaction,
         saveComposedTransaction: coinmarketCommonActions.saveComposedTransaction,
         signTransaction: coinmarketCommonActions.signTransaction,
         addNotification: notificationActions.addToast,
         setShowLeaveModal: coinmarketSellActions.setShowLeaveModal,
+        saveTrade: coinmarketSpendActions.saveTrade,
     });
     const { translationString } = useTranslation();
 
@@ -110,6 +113,8 @@ export const useCoinmarketSpend = (props: Props): SpendContextValues => {
                     });
                     if (success) {
                         await invityAPI.confirmVoucherTrade(trade);
+                        const newDate = new Date().toISOString();
+                        saveTrade(trade, account, newDate);
                         setShowLeaveModal(false);
                     }
                     return;
@@ -141,6 +146,7 @@ export const useCoinmarketSpend = (props: Props): SpendContextValues => {
             setShowLeaveModal,
             signTransaction,
             translationString,
+            saveTrade,
         ],
     );
 

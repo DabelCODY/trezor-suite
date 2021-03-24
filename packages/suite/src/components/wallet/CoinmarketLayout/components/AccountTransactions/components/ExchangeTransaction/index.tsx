@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ExchangeProviderInfo } from 'invity-api';
 import { Button, Icon, variables, useTheme } from '@trezor/components';
-import { CoinmarketExchangeProviderInfo } from '@wallet-components';
+import { CoinmarketProviderInfo } from '@wallet-components';
 import { TradeExchange } from '@wallet-reducers/coinmarketReducer';
 import * as routerActions from '@suite-actions/routerActions';
 import * as coinmarketExchangeActions from '@wallet-actions/coinmarketExchangeActions';
@@ -127,6 +127,8 @@ const ExchangeTransaction = ({ trade, providers, account }: Props) => {
         });
     };
 
+    const provider = providers && exchange ? providers[exchange] : undefined;
+
     return (
         <Wrapper>
             <Column>
@@ -156,7 +158,7 @@ const ExchangeTransaction = ({ trade, providers, account }: Props) => {
             </Column>
             <ProviderColumn>
                 <Row>
-                    <CoinmarketExchangeProviderInfo exchange={exchange} providers={providers} />
+                    <CoinmarketProviderInfo exchange={exchange} provider={provider} />
                 </Row>
             </ProviderColumn>
             <BuyColumn>

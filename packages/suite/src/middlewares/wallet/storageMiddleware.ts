@@ -9,6 +9,7 @@ import {
     COINMARKET_BUY,
     SEND,
     COINMARKET_EXCHANGE,
+    COINMARKET_SPEND,
 } from '@wallet-actions/constants';
 import * as storageActions from '@suite-actions/storageActions';
 import * as accountUtils from '@wallet-utils/accountUtils';
@@ -173,6 +174,19 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
 
         case COINMARKET_EXCHANGE.SAVE_TRADE:
             storageActions.saveExchangeTrade(
+                action.data,
+                {
+                    descriptor: action.account.descriptor,
+                    symbol: action.account.symbol,
+                    accountType: action.account.accountType,
+                    accountIndex: action.account.accountIndex,
+                },
+                action.date,
+            );
+            break;
+
+        case COINMARKET_SPEND.SAVE_TRADE:
+            storageActions.saveSpendTrade(
                 action.data,
                 {
                     descriptor: action.account.descriptor,
