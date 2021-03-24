@@ -15,6 +15,7 @@ import Firmware from '@firmware-views';
 import Onboarding from '@onboarding-views';
 import Recovery from '@suite/views/recovery';
 import Backup from '@backup-views';
+import { ModalRoute } from '@suite/constants/suite/routes';
 import {
     Analytics,
     Bridge,
@@ -94,8 +95,8 @@ const getSuiteApplicationState = ({
     if (authConfirmation?.type === 'auth-confirm') return DiscoveryLoader;
 };
 
-const getModalApplication = (route: AppState['router']['route']) => {
-    if (!route) return;
+/** For given route that is a modal returns corresponding View. */
+const getModalApplication = (route: ModalRoute): ((...args: any[]) => JSX.Element | null) => {
     switch (route.app) {
         case 'welcome':
             return Welcome;
@@ -117,8 +118,7 @@ const getModalApplication = (route: AppState['router']['route']) => {
             return Recovery;
         case 'backup':
             return Backup;
-        default:
-            break;
+        // no default
     }
 };
 
@@ -166,8 +166,8 @@ const Preloader = ({ children, hideModals = false }: Props) => {
     const hasActionModal = actionModalContext !== '@modal/context-none';
     // check if current route is a "modal application" and display it above requested physical route (route in url)
     // pass params to "modal application" and set "cancelable" conditionally
-    const ApplicationModal = getModalApplication(router.route);
-    if (!hideModals && ApplicationModal) {
+    if (!hideModals && router.route?.isModal === true) {
+        const ApplicationModal = getModalApplication(router.route);
         const cancelable = router.params
             ? Object.prototype.hasOwnProperty.call(router.params, 'cancelable')
             : false;

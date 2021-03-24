@@ -55,13 +55,6 @@ const routes = [
         params: modalAppParams,
     },
     {
-        name: 'suite-log',
-        pattern: '/log',
-        app: 'log',
-        isModal: true,
-        params: modalAppParams,
-    },
-    {
         name: 'suite-switch-device',
         pattern: '/switch-device',
         app: 'switch-device',
@@ -219,6 +212,9 @@ const routes = [
 
 type RouteKeys = keyof ArrayElement<typeof routes> | 'isModal' | 'params';
 export type Route = ArrayElement<ConstWithOptionalFields<typeof routes, RouteKeys>>;
+
+/** `routes` narrowed down to modals only. */
+export type ModalRoute = Extract<typeof routes[number], { isModal: true }>;
 
 type RouteParamsTypes = {
     symbol: Network['symbol'];
