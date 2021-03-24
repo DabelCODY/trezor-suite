@@ -37,13 +37,16 @@ const Text = styled.div`
 
 interface Props {
     exchange?: string;
-    provider?: {
-        logo: string;
-        companyName: string;
+    providers?: {
+        [name: string]: {
+            logo: string;
+            companyName: string;
+        };
     };
 }
 
-const CoinmarketProviderInfo = ({ exchange, provider }: Props) => {
+const CoinmarketProviderInfo = ({ exchange, providers }: Props) => {
+    const provider = providers && exchange ? providers[exchange] : null;
     return (
         <Wrapper>
             {!exchange && 'Unknown provider'}

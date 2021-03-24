@@ -179,7 +179,10 @@ const Quote = ({ className, quote }: Props) => {
                         <Translation id="TR_EXCHANGE_PROVIDER" />
                     </Heading>
                     <Value>
-                        <CoinmarketProviderInfo exchange={exchange} provider={provider} />
+                        <CoinmarketProviderInfo
+                            exchange={exchange}
+                            providers={exchangeInfo?.providerInfos}
+                        />
                     </Value>
                 </Column>
                 <Column>

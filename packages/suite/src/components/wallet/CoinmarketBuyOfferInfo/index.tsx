@@ -110,8 +110,6 @@ const CoinmarketBuyOfferInfo = ({ selectedQuote, transactionId, providers, accou
         fiatStringAmount,
     } = selectedQuote;
 
-    const provider = providers && exchange ? providers[exchange] : undefined;
-
     return (
         <Wrapper>
             <Info>
@@ -146,7 +144,7 @@ const CoinmarketBuyOfferInfo = ({ selectedQuote, transactionId, providers, accou
                         <Translation id="TR_BUY_PROVIDER" />
                     </LeftColumn>
                     <RightColumn>
-                        <CoinmarketProviderInfo exchange={exchange} provider={provider} />
+                        <CoinmarketProviderInfo exchange={exchange} providers={providers} />
                     </RightColumn>
                 </Row>
                 <Row>
