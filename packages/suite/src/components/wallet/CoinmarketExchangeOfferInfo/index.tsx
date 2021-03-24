@@ -213,7 +213,10 @@ const CoinmarketExchangeOfferInfo = ({
                         <Translation id="TR_EXCHANGE_PROVIDER" />
                     </LeftColumn>
                     <RightColumn>
-                        <CoinmarketProviderInfo exchange={exchange} provider={provider} />
+                        <CoinmarketProviderInfo
+                            exchange={exchange}
+                            providers={exchangeInfo?.providerInfos}
+                        />
                     </RightColumn>
                 </Row>
             </Info>

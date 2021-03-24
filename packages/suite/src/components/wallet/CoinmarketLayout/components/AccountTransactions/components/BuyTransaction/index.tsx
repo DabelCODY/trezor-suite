@@ -178,8 +178,6 @@ const BuyTransaction = ({ trade, providers, account }: Props) => {
         });
     };
 
-    const provider = providers && exchange ? providers[exchange] : undefined;
-
     return (
         <Wrapper>
             <Column>
@@ -209,7 +207,7 @@ const BuyTransaction = ({ trade, providers, account }: Props) => {
             </Column>
             <ProviderColumn>
                 <Row>
-                    <CoinmarketProviderInfo exchange={exchange} provider={provider} />
+                    <CoinmarketProviderInfo exchange={exchange} providers={providers} />
                 </Row>
                 <RowSecond>
                     <CoinmarketPaymentType method={paymentMethod} />

@@ -204,7 +204,6 @@ const Quote = ({ className, quote, wantCrypto }: Props) => {
     // in the future will be taken from quote.tags, will need some algorithm to evaluate them and show only one
     const hasTag = false;
     const { paymentMethod, exchange, error } = quote;
-    const provider = providersInfo && exchange ? providersInfo[exchange] : undefined;
 
     return (
         <Wrapper className={className}>
@@ -232,7 +231,7 @@ const Quote = ({ className, quote, wantCrypto }: Props) => {
                         <Translation id="TR_BUY_PROVIDER" />
                     </Heading>
                     <Value>
-                        <CoinmarketProviderInfo exchange={exchange} provider={provider} />
+                        <CoinmarketProviderInfo exchange={exchange} providers={providersInfo} />
                     </Value>
                 </Column>
                 <Column>

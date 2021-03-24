@@ -83,7 +83,6 @@ const SpendTransaction = ({ trade, providers }: Props) => {
     const { date, data, tradeType } = trade;
     const { exchange } = data;
     const { cryptoAmount, cryptoCurrency, paymentId } = data;
-    const provider = providers && exchange ? providers[exchange] : undefined;
 
     return (
         <Wrapper>
@@ -106,7 +105,7 @@ const SpendTransaction = ({ trade, providers }: Props) => {
             </Column>
             <ProviderColumn>
                 <Row>
-                    <CoinmarketProviderInfo exchange={exchange} provider={provider} />
+                    <CoinmarketProviderInfo exchange={exchange} providers={providers} />
                 </Row>
             </ProviderColumn>
         </Wrapper>
