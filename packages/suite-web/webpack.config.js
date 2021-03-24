@@ -164,6 +164,22 @@ module.exports = {
                     },
                 },
             },
+            // CSS
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                mode: 'local',
+                                localIdentName: '[name]__[local]',
+                            },
+                        },
+                    },
+                ],
+            }
         ],
     },
     plugins: [
