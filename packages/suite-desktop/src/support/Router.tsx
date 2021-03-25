@@ -2,7 +2,7 @@ import React, { lazy, memo, Suspense } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Loader } from '@trezor/components';
 
-import routes from '../config/routes.json';
+// import routes from '../config/routes.json';
 
 const ErrorPage = lazy(() => import('@suite-views/error'));
 const components: { [key: string]: React.LazyExoticComponent<any> } = {
@@ -44,6 +44,7 @@ const components: { [key: string]: React.LazyExoticComponent<any> } = {
 const AppRouter = () => (
     <Suspense fallback={<Loader size={64} />}>
         <Switch>
+            {/*
             {routes.map(route => (
                 <Route
                     key={route.path}
@@ -52,6 +53,7 @@ const AppRouter = () => (
                     component={route.component ? components[route.component] : undefined}
                 />
             ))}
+            */}
             {/* 404 */}
             <Route path="*" component={ErrorPage} />
         </Switch>
