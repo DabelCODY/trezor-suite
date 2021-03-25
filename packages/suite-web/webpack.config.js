@@ -240,8 +240,14 @@ module.exports = {
             clientsClaim: true,
             skipWaiting: true,
             maximumFileSizeToCacheInBytes: 10 * 1000 * 1000,
-            /*
             runtimeCaching: [
+                {
+                    urlPattern: /.*\.js(.map)?/,
+                    handler: 'NetworkFirst',
+                    options: {
+                        cacheName: 'js-cache',
+                    },
+                },
                 {
                     urlPattern: '/(news|connect).trezor.io/',
                     handler: 'NetworkFirst',
@@ -260,7 +266,6 @@ module.exports = {
                     },
                 },
             ],
-            */
         }),
 
         // Webpack Dev server only

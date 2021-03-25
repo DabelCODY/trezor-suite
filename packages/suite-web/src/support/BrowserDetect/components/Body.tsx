@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Body = ({ children, title, subtitle, button, url }: Props) => (
-    <div className={style.container}>
+    <div className={style.container} data-test="@browser-detect">
         <h1 className={style.title}>{title}</h1>
         <p className={style.subtitle}>{subtitle}</p>
         {button && url && (
