@@ -1,6 +1,6 @@
 import reducer, { initialState, TradeBuy, TradeExchange } from '@wallet-reducers/coinmarketReducer';
 import { STORAGE } from '@suite-actions/constants';
-import { COINMARKET_BUY, COINMARKET_EXCHANGE } from '@wallet-actions/constants';
+import { COINMARKET_BUY, COINMARKET_COMMON, COINMARKET_EXCHANGE } from '@wallet-actions/constants';
 import {
     BuyTrade,
     BuyTradeQuoteRequest,
@@ -270,7 +270,7 @@ describe('settings reducer', () => {
 
         expect(
             reducer(undefined, {
-                type: COINMARKET_BUY.SAVE_TRADE,
+                type: COINMARKET_COMMON.SAVE_TRADE,
                 ...tradeBuy,
             } as any),
         ).toEqual({
@@ -285,7 +285,7 @@ describe('settings reducer', () => {
                     trades: [tradeExchange, tradeBuy],
                 },
                 {
-                    type: COINMARKET_EXCHANGE.SAVE_TRADE,
+                    type: COINMARKET_COMMON.SAVE_TRADE,
                     ...updatedTradeExchange,
                 } as any,
             ),

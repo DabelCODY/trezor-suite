@@ -18,7 +18,6 @@ import {
     COINMARKET_EXCHANGE,
     COINMARKET_COMMON,
     COINMARKET_SELL,
-    COINMARKET_SPEND,
 } from '@wallet-actions/constants';
 import { STORAGE } from '@suite-actions/constants';
 import { Action as SuiteAction } from '@suite-types';
@@ -151,9 +150,7 @@ const coinmarketReducer = (
             case COINMARKET_BUY.DISPOSE:
                 draft.buy.addressVerified = undefined;
                 break;
-            case COINMARKET_SPEND.SAVE_TRADE:
-            case COINMARKET_EXCHANGE.SAVE_TRADE:
-            case COINMARKET_BUY.SAVE_TRADE:
+            case COINMARKET_COMMON.SAVE_TRADE:
                 if (action.key) {
                     const trades = state.trades.filter(t => t.key !== action.key);
                     const { type, ...trade } = action;

@@ -6,10 +6,8 @@ import {
     TRANSACTION,
     FIAT_RATES,
     GRAPH,
-    COINMARKET_BUY,
     SEND,
-    COINMARKET_EXCHANGE,
-    COINMARKET_SPEND,
+    COINMARKET_COMMON,
 } from '@wallet-actions/constants';
 import * as storageActions from '@suite-actions/storageActions';
 import * as accountUtils from '@wallet-utils/accountUtils';
@@ -20,6 +18,7 @@ import { WalletAction } from '@wallet-types';
 import { getDiscovery } from '@wallet-actions/discoveryActions';
 import { isDeviceRemembered } from '@suite-utils/device';
 import { serializeDiscovery } from '@suite-utils/storage';
+import { Trade } from '@suite-actions/storageActions';
 
 const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dispatch) => (
     action: SuiteAction | WalletAction,
@@ -158,10 +157,9 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
         case SEND.REMOVE_DRAFT:
             storageActions.removeDraft(action.key);
             break;
-
-        case COINMARKET_BUY.SAVE_TRADE:
-            storageActions.saveBuyTrade(
-                action.data,
+        case COINMARKET_COMMON.SAVE_TRADE:
+            storageActions.saveCoinmarketTrade(
+                action.data as Trade,
                 {
                     descriptor: action.account.descriptor,
                     symbol: action.account.symbol,
@@ -169,32 +167,8 @@ const storageMiddleware = (api: MiddlewareAPI<Dispatch, AppState>) => (next: Dis
                     accountIndex: action.account.accountIndex,
                 },
                 action.date,
-            );
-            break;
-
-        case COINMARKET_EXCHANGE.SAVE_TRADE:
-            storageActions.saveExchangeTrade(
-                action.data,
-                {
-                    descriptor: action.account.descriptor,
-                    symbol: action.account.symbol,
-                    accountType: action.account.accountType,
-                    accountIndex: action.account.accountIndex,
-                },
-                action.date,
-            );
-            break;
-
-        case COINMARKET_SPEND.SAVE_TRADE:
-            storageActions.saveSpendTrade(
-                action.data,
-                {
-                    descriptor: action.account.descriptor,
-                    symbol: action.account.symbol,
-                    accountType: action.account.accountType,
-                    accountIndex: action.account.accountIndex,
-                },
-                action.date,
+                action.tradeType,
+                action.key,
             );
             break;
 
