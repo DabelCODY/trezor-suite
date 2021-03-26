@@ -1383,12 +1383,9 @@ const definedMessages = defineMessages({
         defaultMessage: 'Auto-lock time',
         id: 'TR_DEVICE_SETTINGS_AUTO_LOCK',
     },
-    TR_DEVICE_YOU_RECONNECTED_IS_DIFFERENT: {
-        defaultMessage:
-            'Device you reconnected is different from the previous device. Connect the right one.',
-        description:
-            'Text that indicates that user reconnected different device than he was working with before',
-        id: 'TR_DEVICE_YOU_RECONNECTED_IS_DIFFERENT',
+    TR_DEVICE_SETTINGS_AUTO_LOCK_SUBHEADING: {
+        defaultMessage: 'The amount of time that elapses before the device automatically locks.',
+        id: 'TR_DEVICE_SETTINGS_AUTO_LOCK_SUBHEADING',
     },
     TR_DID_YOU_PURCHASE: {
         defaultMessage:
@@ -4984,6 +4981,10 @@ const definedMessages = defineMessages({
     TR_TODAY_DATE: {
         id: 'TR_TODAY_DATE',
         defaultMessage: 'Today, {date}',
+    },
+    TR_DEFAULT: {
+        id: 'TR_DEFAULT',
+        defaultMessage: 'default',
     },
     TR_DOWNLOADING_UPDATE: {
         id: 'TR_DOWNLOADING_UPDATE',

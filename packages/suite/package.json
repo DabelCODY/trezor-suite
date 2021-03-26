@@ -52,6 +52,7 @@
         "redux": "^4.0.5",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.3.0",
+        "semver": "^7.3.5",
         "styled-components": "5.1.1",
         "trezor-address-validator": "^0.3.22",
         "trezor-connect": "8.1.25-extended",

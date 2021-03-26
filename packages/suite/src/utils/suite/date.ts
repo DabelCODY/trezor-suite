@@ -1,5 +1,6 @@
 import {
     formatDistance,
+    formatDistanceStrict,
     differenceInMonths,
     fromUnixTime,
     getUnixTime,
@@ -14,6 +15,8 @@ import { utcToZonedTime } from 'date-fns-tz';
 
 export const formatDuration = (seconds: number) =>
     formatDistance(0, seconds * 1000, { includeSeconds: true });
+
+export const formatDurationStrict = (seconds: number) => formatDistanceStrict(0, seconds * 1000);
 
 export const getLocalTimeZone = () => {
     return Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -130,19 +133,4 @@ export const resetUTCTime = (ts: number, resetDay?: boolean) => {
     }
     const sanitizedUnixTimestamp = getUnixTime(sanitizedTimestamp);
     return sanitizedUnixTimestamp;
-};
-
-export const getTimeValueFromSeconds = (seconds: number, type: string) => {
-    switch (type) {
-        case 'days':
-            return Math.floor(seconds / (3600 * 24));
-        case 'hours':
-            return Math.floor((seconds % (3600 * 24)) / 3600);
-        case 'minutes':
-            return Math.floor((seconds % 3600) / 60);
-        case 'seconds':
-            return Math.floor(seconds % 60);
-        default:
-            return seconds;
-    }
 };

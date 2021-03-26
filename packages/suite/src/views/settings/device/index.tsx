@@ -1,5 +1,7 @@
 import React, { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import * as semver from 'semver';
+
 import { SettingsLayout } from '@settings-components';
 import { Translation } from '@suite-components';
 import {
@@ -9,6 +11,7 @@ import {
     SectionItem,
     Section,
     TextColumn,
+    ActionSelect,
 } from '@suite-components/Settings';
 import {
     DRY_RUN_URL,
@@ -16,14 +19,14 @@ import {
     PASSPHRASE_URL,
     SEED_MANUAL_URL,
 } from '@suite-constants/urls';
-import { getTimeValueFromSeconds } from '@suite-utils/date';
-import { getFwVersion, isBitcoinOnly } from '@suite-utils/device';
+import { getDeviceVersion, getFwVersion, isBitcoinOnly } from '@suite-utils/device';
 import * as homescreen from '@suite-utils/homescreen';
 import { useDevice, useAnalytics, useActions, useSelector } from '@suite-hooks';
 import { variables, Switch } from '@trezor/components';
 import * as routerActions from '@suite-actions/routerActions';
 import * as modalActions from '@suite-actions/modalActions';
 import * as deviceSettingsActions from '@settings-actions/deviceSettingsActions';
+import { formatDurationStrict } from '@suite/utils/suite/date';
 
 const RotationButton = styled(ActionButton)`
     min-width: 81px;
@@ -43,41 +46,23 @@ const Col = styled.div`
     flex-direction: column;
 `;
 
-const times = [
+const autoLockOptionTimes = [
+    { label: formatDurationStrict(60), value: 60 },
     {
-        name: 'days',
-        label: 'Day',
-        max: 5,
-        multiplier: 24 * 60 * 60,
+        title: formatDurationStrict(60 * 10),
+        label: (
+            <>
+                {formatDurationStrict(60 * 10)}
+                &nbsp;(
+                <Translation id="TR_DEFAULT" />)
+            </>
+        ),
+        value: 60 * 10,
     },
-    {
-        name: 'hours',
-        label: 'Hrs',
-        max: 23,
-        multiplier: 60 * 60,
-    },
-    {
-        name: 'minutes',
-        label: 'Min',
-        max: 59,
-        multiplier: 60,
-    },
-    {
-        name: 'seconds',
-        label: 'Sec',
-        max: 59,
-        multiplier: 1,
-    },
-];
-
-const getAutoLockValue = (time) => {
-    let value = 0;
-    times.forEach(t => {
-        value += time[t.name] * t.multiplier;
-    });
-
-    return value;
-};
+    { label: formatDurationStrict(60 * 60), value: 60 * 60 },
+    { label: formatDurationStrict(60 * 60 * 24), value: 60 * 60 * 24 },
+    { label: formatDurationStrict(60 * 60 * 24 * 6), value: 60 * 60 * 24 * 6 },
+] as const;
 
 const Settings = () => {
     const device = useSelector(state => state.suite.device);
@@ -92,29 +77,15 @@ const Settings = () => {
     const [customHomescreen, setCustomHomescreen] = useState('');
     const fileInputElement = createRef<HTMLInputElement>();
     const { isLocked } = useDevice();
-    const isDeviceLocked = isLocked();
+    const isDeviceLocked = isLocked(); // NOT WORKING
     const analytics = useAnalytics();
     const MAX_LABEL_LENGTH = 16;
-    const [autoLockTime, setAutoLockTime] = useState({
-        seconds: 0,
-        minutes: 0,
-        hours: 0,
-        days: 0,
-    });
 
     useEffect(() => {
         if (!device) {
             return;
         }
         setLabel(device.label);
-
-        const autolock = 42420; // TEMP
-        let timeValues = {};
-        times.forEach(t => {
-            timeValues[t.name] = getTimeValueFromSeconds(autolock, t.name);
-        });
-
-        setAutoLockTime(timeValues);
     }, [device]);
 
     if (!device?.features) {
@@ -501,47 +472,40 @@ const Settings = () => {
                         </ActionColumn>
                     </SectionItem>
                 )}
-                {features.major_version === 2 && (
+                {semver.satisfies(getDeviceVersion(device), '<2.0.0 || >=2.3.2') && (
                     <SectionItem>
-                        <TextColumn title={<Translation id="TR_DEVICE_SETTINGS_AUTO_LOCK" />} />
+                        <TextColumn
+                            title={<Translation id="TR_DEVICE_SETTINGS_AUTO_LOCK" />}
+                            description={
+                                <Translation id="TR_DEVICE_SETTINGS_AUTO_LOCK_SUBHEADING" />
+                            }
+                        />
                         <ActionColumn>
-                            {times.map(t => (
-                                <ActionInput
-                                    key={t.name}
-                                    label={t.label}
-                                    value={autoLockTime[t.name]}
-                                    max={t.max}
-                                    width={84}
-                                    type="number"
-                                    onChange={(event: React.FormEvent<HTMLInputElement>) =>
-                                        setAutoLockTime({
-                                            ...autoLockTime,
-                                            [t.name]: Number(event.currentTarget.value),
-                                        })
-                                    }
-                                    data-test={`@settings/device/autolock-${t.name}-input`}
-                                    readOnly={isDeviceLocked}
-                                />
-                            ))}
-
-                            <ActionButton
-                                onClick={() => {
+                            <ActionSelect
+                                noTopLabel
+                                hideTextCursor
+                                useKeyPressScroll
+                                onChange={(option: { value: string; label: string }) => {
                                     applySettings({
-                                        auto_lock_delay_ms: getAutoLockValue(autoLockTime) * 1000,
+                                        auto_lock_delay_ms: option.value * 1000,
                                     });
                                     analytics.report({
                                         type: 'settings/device/update-autolock',
                                         payload: {
-                                            value: getAutoLockValue(autoLockTime),
+                                            value: option.value * 1000,
                                         },
                                     });
                                 }}
-                                // TODO: Update isDisabled if the time is incorect
-                                isDisabled={isDeviceLocked}
-                                data-test="@settings/device/autolock-submit"
-                            >
-                                Update
-                            </ActionButton>
+                                value={autoLockOptionTimes.find(
+                                    option => option.value === features?.auto_lock_delay_ms / 1000,
+                                )}
+                                formatOptionLabel={(option, { context }) =>
+                                    (context === 'value' && option.title) || option.label
+                                }
+                                options={autoLockOptionTimes}
+                                data-test="@settings/auto-lock-select"
+                                disabled
+                            />
                         </ActionColumn>
                     </SectionItem>
                 )}
