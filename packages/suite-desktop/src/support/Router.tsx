@@ -5,6 +5,7 @@ import { Loader } from '@trezor/components';
 // import routes from '../config/routes.json';
 
 const ErrorPage = lazy(() => import('@suite-views/error'));
+/*
 const components: { [key: string]: React.LazyExoticComponent<any> } = {
     '@dashboard-views': lazy(() => import('@dashboard-views')),
     '@suite-views/notifications': lazy(() => import('@suite-views/notifications')),
@@ -40,6 +41,7 @@ const components: { [key: string]: React.LazyExoticComponent<any> } = {
     '@settings-views/debug': lazy(() => import('@settings-views/debug')),
     '@settings-views/device': lazy(() => import('@settings-views/device')),
 };
+*/
 
 const AppRouter = () => (
     <Suspense fallback={<Loader size={64} />}>

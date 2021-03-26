@@ -156,13 +156,7 @@ module.exports = {
             // Images
             {
                 test: [/\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
-                use: {
-                    loader: 'file-loader',
-                    options: {
-                        // limit: 10000,
-                        name: 'static/img/[name].[contenthash:8].[ext]',
-                    },
-                },
+                type: 'asset/resource',
             },
             // CSS
             {
